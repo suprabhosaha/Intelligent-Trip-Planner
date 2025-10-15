@@ -94,7 +94,7 @@ GEMINI_API_KEY=your_gemini_api_key
 LANGCHAIN_TRACING_V2=true
 LANGCHAIN_API_KEY=your_langsmith_api_key
 LANGCHAIN_PROJECT=AI_Travel_Planner
-WEATHER_API_KEY=your_weather_api_key
+OPENWEATHER_API_KEY=your_weather_api_key
 FLIGHT_API_KEY=your_flight_api_key
 ```
 
