@@ -4,6 +4,7 @@ An **intelligent multi-agent travel assistant** that automatically plans your en
 The app provides **day-wise itineraries**, **real flight details**, and even suggests **alternate destinations** if the weather is unfavorable — all within an interactive **Streamlit dashboard**.
 
 🔗 **Live Demo:** [Click here to try the app](https://intelligent-trip-planner-eq0w.onrender.com/)
+🔗 **GitHub Code:** [GitHub](https://github.com/suprabhosaha/Intelligent-Trip-Planner)
 ---
 
 ## 🚀 Features
