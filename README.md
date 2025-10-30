@@ -3,7 +3,7 @@
 An **intelligent multi-agent travel assistant** that automatically plans your entire trip — from flights to weather-based itinerary generation — using **Google Gemini**, **LangGraph**, and **LangSmith** for orchestration and monitoring.  
 The app provides **day-wise itineraries**, **real flight details**, and even suggests **alternate destinations** if the weather is unfavorable — all within an interactive **Streamlit dashboard**.
 
-🔗 **Live Demo:** [Click here to try the app](https://intelligent-trip-planner-eq0w.onrender.com/) \
+🔗 **Live Demo:** [Demo](https://intelligent-trip-planner-eq0w.onrender.com/) \
 🔗 **GitHub Code:** [GitHub](https://github.com/suprabhosaha/Intelligent-Trip-Planner)
 ---
 
@@ -29,12 +29,13 @@ User Input
 ▼
 LangGraph Pipeline
 │
-├── Airport Node → Calls Gemini to get IATA codes
 ├── Flight Node → Fetches flights both ways
+├── Hotel Node → Fetches hotel data
 ├── Weather Node → Fetches destination forecast
-├── Weather Decision → Checks if weather is good
-├── Alternate Node → Suggests new destinations if bad
-└── Itinerary Node → Generates day-wise plan
+├── Weather Decision → Checks if weather is favourable or not
+├── Alternate Node → Suggests new destinations if weather is unfavourable
+├── Itinerary Node → Generates day-wise plan
+└── Summary Node → Generates a summary for the itinerary with additional to-dos
 │
 ▼
 Streamlit UI → Expandable divs, alternate buttons, regenerate
@@ -45,21 +46,29 @@ Streamlit UI → Expandable divs, alternate buttons, regenerate
 ## 🧩 Project Structure
 
 ```
-travel_itinerary_ai/
-│
-├── app.py                            # Streamlit UI
-├── langgraph_flow.py                 # LangGraph pipeline & nodes
+intelligent-trip-planner/
 │
 ├── modules/
-│   ├── flight_api.py                 # Flight fetching logic
-│   ├── weather_api.py                # Weather forecast logic
-│   ├── airport_lookup.py             # Gemini-powered airport code finder
+│   ├── flight_api.py                     # Flight data fetching from SerpAPI
+│   ├── weather_api.py                    # Weather forecast data fetching from OpenWeatherAPI
+│   ├── llm_gmeini.py                     # Gemini-powered LLM
+|   ├── hotel_api.py                      # Hotel data fetching from SerpAPI
 │
-├── utils/
-│   ├── langsmith_init.py             # LangSmith integration
+├── trip_graph/
+│   ├── langgraph_flow.py                 # LangGraph pipeline
+|   ├── nodes\
+|   |    ├── flight_node.py               # Flight fetching Logic
+|   |    ├── hotel_node.py                # Hotel fetching Logic
+|   |    ├── weather_node.py              # Weather Forecast fetching Logic
+|   |    ├── weather_decision_node.py     # Weather Decision Logic
+|   |    ├── alternate_node.py            # Alternate Suggestion Logic
+|   |    ├── planner_node.py              # Itinerary Logic
+|   |    ├── summary_node.py              # Summarizer Logic
 │
-├── requirements.txt
-└── README.md                         # This file
+├── app.py                                # Streamlit UI
+├── config.py                             # App configuration settings
+├── requirements.txt                      # Python library requirements
+└── README.md                             # This file
 ```
 
 ---
@@ -69,8 +78,8 @@ travel_itinerary_ai/
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/<yourusername>/travel-itinerary-ai.git
-cd travel-itinerary-ai
+git clone https://github.com/suprabhosaha/Intelligent-Trip-Planner.git
+cd Intelligent-Trip-Planner/
 ```
 
 ### 2️⃣ Create a virtual environment
@@ -117,8 +126,8 @@ Your Streamlit app will open at:
 ### Step 1 — Enter Your Trip Details  
 Input:
 ```
-From: Delhi
-To: Paris
+From: Bangalore
+To: Jaipur
 Start Date: 2025-05-10
 End Date: 2025-05-15
 ```
@@ -135,8 +144,8 @@ The app will generate:
 
 Example:
 ```
-Day 1: Arrival, Eiffel Tower visit, local dining
-Day 2: Louvre Museum, River Seine Cruise
+Day 1: Arrival, Hawa Mahal visit, local dining
+Day 2: Jal Mahal and Fort Exploration
 ...
 ```
 
@@ -145,12 +154,12 @@ Day 2: Louvre Museum, River Seine Cruise
 ### Step 3 — Handle Unfavorable Weather  
 If the weather is bad, Gemini automatically suggests:
 ```
-⚠️ Paris may have storms.
+⚠️ Jaipur may have heat.
 Try these alternatives:
-→ Rome [Plan Rome]
-→ Barcelona [Plan Barcelona]
+→ Mysore [Plan Mysore]
+→ Kochi [Plan Kochi]
 ```
-Clicking **Plan Rome** automatically regenerates a new itinerary using LangGraph.
+Clicking **Plan Mysore** automatically regenerates a new itinerary using LangGraph.
 
 ---
 
@@ -214,6 +223,4 @@ Click the **Regenerate Plan** button in the Streamlit UI to retry with fallback 
 
 ## 👨‍💻 Author
 
-Developed by **Suprabho Saha**  
-IIT Bhilai | AI & Machine Learning | Web Development  
-Passionate about creating intelligent, user-friendly digital solutions.
+Developed by **Suprabho Saha**
